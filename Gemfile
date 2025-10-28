@@ -66,3 +66,5 @@ group :test do
 end
 
 gem "ruby_llm", "~> 1.8"
+
+gem "mission_control-jobs", "~> 1.1"
