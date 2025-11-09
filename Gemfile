@@ -57,6 +57,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "hotwire-spark"
 end
 
 group :test do
@@ -68,3 +69,5 @@ end
 gem "ruby_llm", "~> 1.8"
 
 gem "mission_control-jobs", "~> 1.1"
+
+gem "tailwindcss-rails", "~> 4.4"
