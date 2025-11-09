@@ -69,3 +69,5 @@ end
 gem "ruby_llm", "~> 1.9"
 
 gem "tailwindcss-rails", "~> 4.4"
+
+gem "mission_control-jobs", "~> 1.1"

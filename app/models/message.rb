@@ -9,4 +9,11 @@ class Message < ApplicationRecord
       partial: "messages/content",
       locals: { content: content }
   end
+
+  def broadcast_replace_content(content)
+    broadcast_replace_to "chat_#{chat_id}",
+      target: "message_#{id}_content",
+      partial: "messages/content",
+      locals: { message_id: id, content: }
+  end
 end

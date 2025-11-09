@@ -9,7 +9,7 @@
     </time>
   </div>
   <div class="chat-bubble">
-    <div id="message_<%= message.id %>_content" style="white-space: pre-wrap;"><%= message.content %></div>
+    <%= render "messages/content", message_id: message.id, content: message.content %>
   </div>
   <% if message.tool_call? %>
     <%= render "messages/tool_calls", message: message %>
@@ -17,4 +17,3 @@
   <div style="font-size: 0.85em; color: #666; margin-top: 5px;">
   </div>
 </div>
-
