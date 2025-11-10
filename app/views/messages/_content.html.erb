@@ -1,2 +1,1 @@
-<div id="message_<%= message_id %>_content" style="white-space: pre-wrap;"><%= content %></div>
-
+<div id="message_<%= message_id %>_content" class="prose whitespace-pre-wrap"><%= raw(markdown.render(content)) %></div>
