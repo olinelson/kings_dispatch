@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_14_051725) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_14_054703) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -114,6 +114,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_14_051725) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  create_table "x_interests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "query"
+    t.string "type"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_x_interests_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chats", "models"
@@ -122,4 +131,5 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_14_051725) do
   add_foreign_key "messages", "tool_calls"
   add_foreign_key "sessions", "users"
   add_foreign_key "tool_calls", "messages"
+  add_foreign_key "x_interests", "users"
 end
