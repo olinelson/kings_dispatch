@@ -1,18 +1,9 @@
 Rails.application.routes.draw do
+  resources :x_topics
   resources :x_interests
   resource :session
   resources :passwords, param: :token
   mount MissionControl::Jobs::Engine, at: "/jobs"
-
-
-  resources :chats do
-    resources :messages, only: [ :create ]
-  end
-  resources :models, only: [ :index, :show ] do
-    collection do
-      post :refresh
-    end
-  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -22,6 +13,15 @@ Rails.application.routes.draw do
 
   root "chats#index"
 
+  resources :chats do
+    resources :messages, only: [ :create ]
+  end
+
+  resources :models, only: [ :index, :show ] do
+    collection do
+      post :refresh
+    end
+  end
 
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
