@@ -75,3 +75,5 @@ gem "mission_control-jobs", "~> 1.1"
 gem "redcarpet", "~> 3.6"
 
 gem "faraday"
+
+gem "ruby_llm-schema", "~> 0.2.1"

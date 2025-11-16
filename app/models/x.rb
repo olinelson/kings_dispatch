@@ -16,9 +16,9 @@ class X
       res.body
     end
 
-    def search_posts(query)
+    def search_posts(query, since:)
       res = conn.get("/twitter/tweet/advanced_search") do |req|
-        req.params["query"] = query
+        req.params["query"] = "(#{query}) since:#{since.strftime('%Y-%m-%d')}"
       end
       res.body
     end
