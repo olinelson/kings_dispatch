@@ -1,0 +1,2 @@
+module XInterestsHelper
+end

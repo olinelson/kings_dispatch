@@ -1,7 +1,3 @@
-
-
-
-
 class XTopic < ApplicationRecord
   after_update_commit :generate_query, if: :saved_change_to_title
 
@@ -37,7 +33,6 @@ class XTopic < ApplicationRecord
     chat = RubyLLM.chat.with_schema(GenerateQuerySchema).with_instructions(instructions)
     response = chat.ask(title)
     queries = response.content["queries"]
-    puts queries
     update! queries:
   end
 

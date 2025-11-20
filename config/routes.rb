@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  resources :x_topics
-  resources :x_interests
-  resource :session
-  resources :passwords, param: :token
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -22,6 +18,11 @@ Rails.application.routes.draw do
       post :refresh
     end
   end
+
+  resources :x_topics
+  resource :session
+  resources :passwords, param: :token
+  resource :x_interest
 
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)

@@ -1,0 +1,28 @@
+<%= form_with(model: x_interest, url: x_interest_path) do |form| %>
+  <% if x_interest.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(x_interest.errors.count, "error") %>
+        prohibited this x_interest from being saved:</h2>
+
+      <ul>
+        <% x_interest.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.rich_textarea :description %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
