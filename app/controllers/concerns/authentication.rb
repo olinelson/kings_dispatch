@@ -3,7 +3,7 @@ module Authentication
 
   included do
     before_action :require_authentication
-    helper_method :authenticated?
+    helper_method :authenticated?, :current_user
   end
 
   class_methods do
@@ -37,6 +37,10 @@ module Authentication
     def after_authentication_url
       session.delete(:return_to_after_authenticating) || root_url
     end
+
+  def current_user
+    Current.user
+  end
 
     def start_new_session_for(user)
       user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
