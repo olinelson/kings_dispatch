@@ -1,9 +1,24 @@
 class XTopic < ApplicationRecord
+  has_many :x_interest_x_topic, dependent: :destroy
+  has_many :x_interests, through: :x_interest_x_topic
+
+  after_create_commit :generate_query
   after_update_commit :generate_query, if: :saved_change_to_title
 
   def posts(since)
     formatted_queries = queries.map { "(#{it})" }.join(" OR ")
     X.search_posts(formatted_queries, since:)
+  end
+
+  def generate_query_later
+    GenerateXTopicQueryJob.perform_later(self)
+  end
+
+  def generate_query
+    chat = RubyLLM.chat.with_schema(GenerateQuerySchema).with_instructions(instructions)
+    response = chat.ask(title)
+    queries = response.content["queries"]
+    update! queries:
   end
 
   private
@@ -28,14 +43,6 @@ class XTopic < ApplicationRecord
       Now, generate queries for the given topic.
       INSTRUCTIONS
   end
-
-  def generate_query
-    chat = RubyLLM.chat.with_schema(GenerateQuerySchema).with_instructions(instructions)
-    response = chat.ask(title)
-    queries = response.content["queries"]
-    update! queries:
-  end
-
 
   class GenerateQuerySchema < RubyLLM::Schema
     array :queries, of: :string, description: "X queries that match the examples from the documentation."
