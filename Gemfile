@@ -76,7 +76,7 @@ gem "redcarpet", "~> 3.6"
 
 gem "faraday"
 
-gem "ruby_llm-schema", "~> 0.2.1"
+gem "ruby_llm-schema", "~> 0.2.5"
 
 gem "lexxy", "~> 0.1.20.beta"
 
