@@ -25,5 +25,6 @@ module KingsDispatch
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.lexxy.override_action_text_defaults = true
   end
 end

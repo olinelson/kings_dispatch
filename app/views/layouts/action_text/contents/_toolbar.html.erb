@@ -1,0 +1,118 @@
+<%# locals: (id: "toolbar" ) %>
+<lexxy-toolbar id="<%= id %>">
+  <button
+    class="lexxy-editor__toolbar-button"
+    type="button"
+    name="bold"
+    data-command="bold"
+    title="Bold"
+    tabindex="1"
+  >
+    <%= icon "bold" %>
+  </button>
+
+  <button
+    class="lexxy-editor__toolbar-button"
+    type="button"
+    name="italic"
+    data-command="italic"
+    title="Italic"
+    tabindex="2"
+  >
+    <%= icon "italic" %>
+  </button>
+
+  <button
+    class="lexxy-editor__toolbar-button"
+    type="button"
+    name="link"
+    title="Link"
+    data-dialog-target="link-dialog"
+    data-hotkey="cmd+k ctrl+k"
+    tabindex="3"
+  >
+    <%= icon "link" %>
+  </button>
+
+  <lexxy-link-dialog class="lexxy-link-dialog">
+    <dialog id="link-dialog" closedby="any">
+      <form method="dialog">
+        <input type="url" placeholder="Enter a URL…" class="input" required="">
+        <div class="lexxy-dialog-actions">
+          <button type="submit" class="btn" value="link">
+            <%= icon "check" %>
+          </button>
+          <button type="button" class="btn" value="unlink">
+            <%= icon "x" %>
+          </button>
+        </div>
+      </form>
+    </dialog>
+  </lexxy-link-dialog>
+
+  <button
+    class="lexxy-editor__toolbar-button"
+    type="button"
+    name="quote"
+    data-command="insertQuoteBlock"
+    title="Quote"
+    tabindex="4"
+  >
+    <%= icon "quote" %>
+  </button>
+
+  <button
+    class="lexxy-editor__toolbar-button"
+    type="button"
+    name="heading"
+    data-command="rotateHeadingFormat"
+    title="Heading"
+    tabindex="5"
+  >
+    <%= icon "heading" %>
+  </button>
+
+  <button
+    class="lexxy-editor__toolbar-button"
+    type="button"
+    name="code"
+    data-command="insertCodeBlock"
+    title="Code"
+    tabindex="6"
+  >
+    <%= icon "code" %>
+  </button>
+
+  <button
+    class="lexxy-editor__toolbar-button"
+    type="button"
+    name="unordered-list"
+    data-command="insertUnorderedList"
+    title="Bullet list"
+    tabindex="7"
+  >
+    <%= icon "list" %>
+  </button>
+
+  <button
+    class="lexxy-editor__toolbar-button"
+    type="button"
+    name="ordered-list"
+    data-command="insertOrderedList"
+    title="Numbered list"
+    tabindex="8"
+  >
+    <%= icon "list-numbers" %>
+  </button>
+
+  <details class="lexxy-editor__toolbar-overflow" style="display: none;">
+    <summary
+      class="lexxy-editor__toolbar-button"
+      aria-label="Show more toolbar buttons"
+    >•••</summary>
+    <div
+      class="lexxy-editor__toolbar-overflow-menu"
+      aria-label="More toolbar buttons"
+    ></div>
+  </details>
+</lexxy-toolbar>
