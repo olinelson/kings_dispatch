@@ -1,9 +1,11 @@
 class XTopic < ApplicationRecord
+  broadcasts_to :x_interests
+
   has_many :x_interest_x_topic, dependent: :destroy
   has_many :x_interests, through: :x_interest_x_topic
 
-  after_create_commit :generate_query
-  after_update_commit :generate_query, if: :saved_change_to_title
+  after_create :generate_query_later
+  after_update :generate_query_later, if: :saved_change_to_title
 
   def posts(since)
     formatted_queries = queries.map { "(#{it})" }.join(" OR ")

@@ -1,6 +1,12 @@
-<p style="color: green"><%= notice %></p>
-
+<%= turbo_stream_from @x_interest %>
 <%= render @x_interest %>
+
+<h4>Topics</h4>
+<hr>
+
+<%= render @x_interest.x_topics %>
+
+<hr>
 
 <div>
   <%= link_to "Edit this x interest", edit_x_interest_path %>

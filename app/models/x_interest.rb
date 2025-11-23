@@ -1,9 +1,10 @@
 class XInterest < ApplicationRecord
+  broadcasts
   has_many :x_interest_x_topic, dependent: :destroy
   has_many :x_topics, through: :x_interest_x_topic
 
-  after_create_commit :generate_topics
-  after_update_commit :generate_topics
+  after_create_commit :generate_topics_later
+  after_update_commit :generate_topics_later
 
   belongs_to :user
   has_rich_text :description
@@ -22,10 +23,15 @@ class XInterest < ApplicationRecord
       INSTRUCTIONS
   end
 
+  def generate_topics_later
+    GenerateXTopicsJob.perform_later(self)
+  end
+
   def generate_topics
     chat = RubyLLM.chat.with_schema(GenerateTopicsSchema).with_instructions(instructions)
     response = chat.ask(description.body.to_s)
     topics = response.content["topics"]
+    x_topics.clear
     topics.each do |topic|
       x_topic = XTopic.find_or_create_by(title: topic)
       x_topics << x_topic
