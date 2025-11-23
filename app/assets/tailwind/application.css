@@ -8,3 +8,155 @@
 @plugin "./daisyui-theme.mjs"{
   /* custom theme here */
 }
+
+/* Lexxy */
+
+
+.lexxy-editor__toolbar-button {
+  @apply btn btn-square btn-ghost aria-pressed:!btn-active;
+}
+
+.lexxy-link-dialog {
+  #link-dialog {
+    @apply mx-auto border-2 rounded-box p-2 z-50 ;
+    form {
+      @apply flex gap-2;
+    }
+    .lexxy-dialog-actions {
+      @apply flex gap-2 flex-nowrap;
+      .btn {
+        @apply btn-square;
+      }
+    }
+  }
+
+}
+
+
+.lexxy-editor__content {
+  @apply m-0 ;
+  &:focus {
+    outline: none;
+  }
+
+  @apply group-data-[rich-text-view-value=detail]:!min-h-40 max-h-[40vh] overflow-y-scroll;
+}
+
+.lexxy-content, .lexxy-editor__content {
+  @apply prose max-w-full;
+
+  p, h2, h4, blockquote, ul, ol { 
+    @apply m-0;
+  }
+
+  code, pre {
+    @apply w-full inline-block text-nowrap whitespace-pre;
+  }
+}
+
+.lexxy-code-language-picker {
+  @apply select select-ghost select-xs w-auto right-0 mt-0.5;
+}
+
+.attachment--preview {
+  @apply grid justify-items-center;
+
+  .attachment__caption > input {
+    @apply input input-xs input-ghost text-center;
+  }
+}
+
+
+.lexxy-content__italic {
+  font-style: italic;
+}
+
+.lexxy-content__bold {
+  font-weight: bold;
+}
+
+.lexxy-content__underline {
+  text-decoration: underline;
+}
+
+/* Keywords and attributes */
+.code-token__attr,
+.token.atrule,
+.token.attr,
+.token.keyword {
+  /* color: var(--lexxy-color-code-token-att); */
+  @apply text-red-700;
+}
+
+/* Constants, booleans, numbers, properties, tags */
+.code-token__property,
+.token.boolean,
+.token.constant,
+.token.deleted,
+.token.number,
+.token.property,
+.token.symbol,
+.token.tag {
+  /* color: var(--lexxy-color-code-token-property); */
+  @apply text-blue-700;
+}
+
+/* Strings, selectors, and built-in constructs */
+.code-token__selector,
+.token.builtin,
+.token.char,
+.token.inserted,
+.token.selector,
+.token.string {
+  @apply text-green-700;
+}
+
+/* Comments and meta information */
+.code-token__comment,
+.token.cdata,
+.token.comment,
+.token.doctype,
+.token.prolog {
+  @apply italic text-gray-400;
+}
+
+/* Operators and symbolic entities */
+.code-token__operator,
+.token.entity,
+.token.operator,
+.token.url {
+  @apply text-red-700;
+}
+
+/* Functions and class names */
+.code-token__function,
+.token.class,
+.token.class-name,
+.token.function {
+  @apply text-purple-700;
+}
+
+/* Variables, regex, namespaces, important */
+.code-token__variable,
+.token.important,
+.token.namespace,
+.token.regex,
+.token.variable {
+  @apply text-orange-700;
+}
+
+/* Punctuation */
+.code-token__punctuation,
+.token.punctuation {
+  @apply text-base-content;
+}
+
+:where([data-lexical-cursor]) {
+  animation: blink 1s step-end infinite;
+  block-size: 1lh;
+  border-inline-start: 1px solid currentColor;
+  line-height: inherit;
+  margin-block: 1em;
+}
+
+

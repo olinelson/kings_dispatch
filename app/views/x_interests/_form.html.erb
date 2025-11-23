@@ -2,7 +2,8 @@
   <div>
     <%= form.label :description, style: "display: block" %>
     <div>
-      <%= form.rich_textarea :description %>
+      <%= render "layouts/action_text/contents/toolbar" %>
+      <%= form.rich_textarea :description, toolbar: "toolbar" %>
     </div>
   </div>
 
