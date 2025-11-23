@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_17_061100) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_23_025017) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -124,6 +124,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_17_061100) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  create_table "x_interest_x_topics", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "x_interest_id", null: false
+    t.integer "x_topic_id", null: false
+    t.index ["x_interest_id"], name: "index_x_interest_x_topics_on_x_interest_id"
+    t.index ["x_topic_id"], name: "index_x_interest_x_topics_on_x_topic_id"
+  end
+
   create_table "x_interests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -147,5 +156,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_17_061100) do
   add_foreign_key "messages", "tool_calls"
   add_foreign_key "sessions", "users"
   add_foreign_key "tool_calls", "messages"
+  add_foreign_key "x_interest_x_topics", "x_interests"
+  add_foreign_key "x_interest_x_topics", "x_topics"
   add_foreign_key "x_interests", "users"
 end
