@@ -1,14 +1,12 @@
-<%= form_with(model: x_interest, url: x_interest_path) do |form| %>
+<%= render "layouts/action_text/contents/toolbar" %>
+<%= form_with model: x_interest, url: x_interest_path do |form| %>
   <div>
-    <%= form.label :description, style: "display: block" %>
-    <div>
-      <%= render "layouts/action_text/contents/toolbar" %>
-      <%= form.rich_textarea :description, toolbar: "toolbar" %>
-    </div>
+    <%= form.label :description %>
+    <%= form.rich_textarea :description, toolbar: "toolbar" %>
   </div>
 
   <div>
-    <%= form.label :user_id, style: "display: block" %>
+    <%= form.label :user_id %>
     <%= form.text_field :user_id %>
   </div>
 
