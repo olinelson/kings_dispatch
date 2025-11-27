@@ -1,9 +1,11 @@
 class XTopic < ApplicationRecord
-  broadcasts_to :x_interests
-
   has_many :x_interest_x_topic, dependent: :destroy
   has_many :x_interests, through: :x_interest_x_topic
 
+  normalizes :queries, with: ->(queries) { queries.compact.reject(&:empty?) }
+
+  after_create_commit :broadcast_create_to_x_interests
+  after_update_commit :broadcast_update_to_x_interests
   after_create :generate_query_later
   after_update :generate_query_later, if: :saved_change_to_title
 
@@ -17,13 +19,27 @@ class XTopic < ApplicationRecord
   end
 
   def generate_query
-    chat = RubyLLM.chat.with_schema(GenerateQuerySchema).with_instructions(instructions)
+    chat = RubyLLM.chat
+      .with_schema(GenerateQuerySchema)
+      .with_instructions(instructions)
     response = chat.ask(title)
     queries = response.content["queries"]
     update! queries:
   end
 
   private
+
+  def broadcast_create_to_x_interests
+    x_interests.each do |x_interest|
+      broadcast_append_later_to x_interest, partial: "x_topics/x_topic", locals: { x_topic: self }, target: "x_topics"
+    end
+  end
+
+  def broadcast_update_to_x_interests
+    x_interests.each do |x_interest|
+      broadcast_replace_later_to x_interest, partial: "x_topics/x_topic", locals: { x_topic: self }
+    end
+  end
 
   def instructions
     <<~INSTRUCTIONS
@@ -47,7 +63,7 @@ class XTopic < ApplicationRecord
   end
 
   class GenerateQuerySchema < RubyLLM::Schema
-    array :queries, of: :string, description: "X queries that match the examples from the documentation."
+    array :queries, of: :string, description: "An array of X queries that match the examples from the documentation. Each item in an array must be a complete query expression."
   end
 
   X_SEARCH_CHEAT_SHEET = <<~Markdown

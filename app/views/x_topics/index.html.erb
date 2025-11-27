@@ -1,16 +1,15 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "X topics" %>
+<div class="prose">
 
-<h1>X topics</h1>
+  <h1>X topics</h1>
 
-<div id="x_topics">
-  <% @x_topics.each do |x_topic| %>
-    <%= render x_topic %>
-    <p>
-      <%= link_to "Show this x topic", x_topic %>
-    </p>
-  <% end %>
+  <%= link_to "New x topic", new_x_topic_path %>
+  <div id="x_topics">
+    <% @x_topics.each do |x_topic| %>
+      <p>
+        <%= link_to x_topic.title, x_topic %>
+      </p>
+    <% end %>
+  </div>
+
 </div>
-
-<%= link_to "New x topic", new_x_topic_path %>

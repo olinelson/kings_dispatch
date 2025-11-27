@@ -1,9 +1,15 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @x_topic %>
+<div class="prose">
+  <h4><%= @x_topic.title %></h4>
+  <ul>
+    <% @x_topic.queries.each do |q| %>
+      <li><%= q %></li>
+    <% end %>
+  </ul>
+</div>
 
 <div>
-  <%= link_to "Edit this x topic", edit_x_topic_path(@x_topic) %> |
+  <%= link_to "Edit this x topic", edit_x_topic_path(@x_topic) %>
+  |
   <%= link_to "Back to x topics", x_topics_path %>
 
   <%= button_to "Destroy this x topic", @x_topic, method: :delete %>
