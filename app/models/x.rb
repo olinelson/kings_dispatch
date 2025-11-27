@@ -8,10 +8,18 @@ class X
         builder.response :logger, Rails.logger, bodies: true
       end
     end
-    # Step 3: Use Bearer Token to make API request
+
     def user_info(user_name)
       res = conn.get("/twitter/user/info") do |req|
         req.params["userName"] = user_name
+      end
+      res.body
+    end
+
+    def users_by_keyword(query, cursor = nil)
+      res = conn.get("/twitter/user/search") do |req|
+        req.params["query"] = query
+        req.params["cursor"] = cursor if cursor
       end
       res.body
     end
