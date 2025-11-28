@@ -7,6 +7,8 @@
   </ul>
 </div>
 
+<%= turbo_frame_tag "posts", src: x_topic_posts_path(@x_topic), loading: "lazy" %>
+
 <div>
   <%= link_to "Edit this x topic", edit_x_topic_path(@x_topic) %>
   |

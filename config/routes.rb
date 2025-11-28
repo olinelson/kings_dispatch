@@ -19,7 +19,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :x_topics
+  resources :x_topics do
+      resources :posts, only: [ :index ], module: :x_topics
+  end
+
   resource :session
   resources :passwords, param: :token
   resource :x_interest

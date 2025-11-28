@@ -1,0 +1,2 @@
+module XTopics::PostsHelper
+end

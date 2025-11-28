@@ -9,7 +9,7 @@ class XTopic < ApplicationRecord
   after_create :generate_query_later
   after_update :generate_query_later, if: :saved_change_to_title
 
-  def posts(since)
+  def posts(since:)
     formatted_queries = queries.map { "(#{it})" }.join(" OR ")
     X.search_posts(formatted_queries, since:)
   end
@@ -41,26 +41,55 @@ class XTopic < ApplicationRecord
     end
   end
 
-  def instructions
-    <<~INSTRUCTIONS
-      You are an expert X (formerly Twitter) search query constructor. Your task is to analyze a **topic title** and **description**, infer the user's intent, and generate a list of **highly effective X search queries** using the advanced operators below.
+def instructions
+  <<~INSTRUCTIONS
+    You are an elite X/Twitter search-query engineer who ships real feeds used by thousands of power users.
 
-      ### Rules:
-      - Generate **3–8 diverse, targeted queries** that cover different angles of the topic.
-      - Use **advanced operators** from the cheat sheet to improve precision and recall.
-      - Prioritize **specificity**, **relevance**, and **real-world search effectiveness**.
-      - Combine operators logically (e.g. `from:`, `filter:`, `since:`, `min_faves:`, etc.).
-      - Avoid generic or overly broad queries unless justified.
-      - Don't include any time related queries - this is managed separately
-      - If the topic involves media, use `filter:media`, `filter:twimg`, etc.
-      - If the topic involves people/orgs, use `from:`, `to:`, or `@`.
+    Generate exactly 5–7 diverse, battle-tested search queries for the topic the user just gave you.
 
-      ### Operator Cheat Sheet:
-      #{X_SEARCH_CHEAT_SHEET.strip}
+    MANDATORY QUALITY RULES (never break these):
+    1. Every single query MUST be designed to return results within the last 1–7 days, even on quiet topics.
+    2. Use these quality boosters in almost every query (mix and match):
+       • -filter:replies
+       • -is:retweet
+       • lang:en (unless clearly multilingual)
+       • min_faves:5 to min_faves:15 max — never higher than 15 unless the topic is viral/breaking
+       • filter:verified or filter:blue_verified when it helps
+    3. For short/ambiguous words (ruby, java, go, python, rust, apple, swift, pearl, etc.):
+       → NEVER use the bare word alone
+       → Always force context with #hashtags, common phrases, related tools/frameworks, or official accounts
+    4. Prefer clean, high-signal patterns that actually work in 2025:
+       • #rubyonrails over "Ruby on Rails"
+       • "rails" over "Ruby on Rails" when combined with dev terms
+       • #golang over "go programming"
+       • #midjourney over "midjourney ai"
+    5. Use exact phrases in quotes only when necessary (product names, memes, slogans).
+    6. Aggressively kill spam when obvious:
+       • Crypto → -giveaway -airdrop -wl -mint
+       • AI → -"make money" -"side hustle" -prompts
+       • Adult → -"onlyfans" -fansly
+    7. Never use time operators — the app adds them later.
 
-      Now, generate queries for the given topic.
-      INSTRUCTIONS
-  end
+    FULL OPERATOR CHEAT SHEET (use anything from here):
+    #{X_SEARCH_CHEAT_SHEET.strip}
+
+    GOLD-STANDARD EXAMPLES (generate queries exactly this sharp):
+
+    Topic: ruby
+    → #rubyonrails -filter:replies lang:en min_faves:5
+    → ("rails" OR "ruby on rails") (gem OR bundler OR activerecord) -filter:replies lang:en min_faves:8
+    → #ruby -filter:replies lang:en min_faves:10
+    → (from:rails OR from:rubycentral OR from:matz) lang:en
+    → "hotwire" OR "turbo" OR "stimulus" lang:en min_faves:5 -filter:replies
+
+    Topic: grok
+    → ("grok" OR "grok 4") (from:xai OR from:elonmusk) lang:en
+    → #grok lang:en -filter:replies min_faves:8
+    → "grok ai" -filter:replies min_faves:10 lang:en
+
+    Return only a valid JSON array of 5–7 strings. No explanations, no markdown, no extra text.
+  INSTRUCTIONS
+end
 
   class GenerateQuerySchema < RubyLLM::Schema
     array :queries, of: :string, description: "An array of X queries that match the examples from the documentation. Each item in an array must be a complete query expression."

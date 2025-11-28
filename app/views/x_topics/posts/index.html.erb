@@ -1,0 +1,10 @@
+<%= turbo_frame_tag "posts" do %>
+  <div class="prose">
+    <% @posts["tweets"].each do |p| %>
+      <p>
+        <a href="<%= p["url"] %>">Link</a>
+        <%= p["text"] %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
