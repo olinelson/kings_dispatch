@@ -1,10 +1,8 @@
 <div class="prose">
   <h4><%= @x_topic.title %></h4>
-  <ul>
-    <% @x_topic.queries.each do |q| %>
-      <li><%= q %></li>
-    <% end %>
-  </ul>
+  <code>
+    <%= @x_topic.formatted_queries %>
+  </code>
 </div>
 
 <%= turbo_frame_tag "posts", src: x_topic_posts_path(@x_topic), loading: "lazy" %>

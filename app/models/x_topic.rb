@@ -8,10 +8,14 @@ class XTopic < ApplicationRecord
   after_update_commit :broadcast_update_to_x_interests
   after_create :generate_query_later
   after_update :generate_query_later, if: :saved_change_to_title
+  broadcasts
 
   def posts(since:)
-    formatted_queries = queries.map { "(#{it})" }.join(" OR ")
     X.search_posts(formatted_queries, since:)
+  end
+
+  def formatted_queries
+    queries.map { "(#{it})" }.join(" OR ")
   end
 
   def generate_query_later

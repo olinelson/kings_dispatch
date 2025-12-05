@@ -6,5 +6,8 @@
         <%= p["text"] %>
       </p>
     <% end %>
+    <% if @posts["tweets"].none? %>
+      <p>No tweets</p>
+    <% end %>
   </div>
 <% end %>
