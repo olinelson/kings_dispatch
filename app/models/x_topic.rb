@@ -57,7 +57,7 @@ def instructions
        • -filter:replies
        • -is:retweet
        • lang:en (unless clearly multilingual)
-       • min_faves:5 to min_faves:15 max — never higher than 15 unless the topic is viral/breaking
+       • min_faves:5
        • filter:verified or filter:blue_verified when it helps
     3. For short/ambiguous words (ruby, java, go, python, rust, apple, swift, pearl, etc.):
        → NEVER use the bare word alone
@@ -77,21 +77,6 @@ def instructions
     FULL OPERATOR CHEAT SHEET (use anything from here):
     #{X_SEARCH_CHEAT_SHEET.strip}
 
-    GOLD-STANDARD EXAMPLES (generate queries exactly this sharp):
-
-    Topic: ruby
-    → #rubyonrails -filter:replies lang:en min_faves:5
-    → ("rails" OR "ruby on rails") (gem OR bundler OR activerecord) -filter:replies lang:en min_faves:8
-    → #ruby -filter:replies lang:en min_faves:10
-    → (from:rails OR from:rubycentral OR from:matz) lang:en
-    → "hotwire" OR "turbo" OR "stimulus" lang:en min_faves:5 -filter:replies
-
-    Topic: grok
-    → ("grok" OR "grok 4") (from:xai OR from:elonmusk) lang:en
-    → #grok lang:en -filter:replies min_faves:8
-    → "grok ai" -filter:replies min_faves:10 lang:en
-
-    Return only a valid JSON array of 5–7 strings. No explanations, no markdown, no extra text.
   INSTRUCTIONS
 end
 
