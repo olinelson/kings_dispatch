@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_23_025017) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_06_111433) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -140,6 +140,33 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_23_025017) do
     t.index ["user_id"], name: "index_x_interests_on_user_id"
   end
 
+  create_table "x_posts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "external_id"
+    t.boolean "is_automated"
+    t.boolean "is_blue_verified"
+    t.integer "like_count"
+    t.datetime "posted_at"
+    t.integer "quote_count"
+    t.integer "reply_count"
+    t.integer "retweet_count"
+    t.string "text"
+    t.string "type"
+    t.datetime "updated_at", null: false
+    t.integer "view_count"
+    t.integer "x_search_id", null: false
+    t.index ["x_search_id"], name: "index_x_posts_on_x_search_id"
+  end
+
+  create_table "x_searches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "end_time"
+    t.datetime "start_time"
+    t.datetime "updated_at", null: false
+    t.integer "x_topic_id", null: false
+    t.index ["x_topic_id"], name: "index_x_searches_on_x_topic_id"
+  end
+
   create_table "x_topics", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
@@ -159,4 +186,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_23_025017) do
   add_foreign_key "x_interest_x_topics", "x_interests"
   add_foreign_key "x_interest_x_topics", "x_topics"
   add_foreign_key "x_interests", "users"
+  add_foreign_key "x_posts", "x_searches"
+  add_foreign_key "x_searches", "x_topics"
 end
