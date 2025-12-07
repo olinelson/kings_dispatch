@@ -1,0 +1,2 @@
+class XSearchesController < ApplicationController
+end

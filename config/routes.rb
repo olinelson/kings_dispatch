@@ -20,7 +20,9 @@ Rails.application.routes.draw do
   end
 
   resources :x_topics do
-      resources :posts, only: [ :index ], module: :x_topics
+      resources :x_searches do
+        resources :x_posts, only: [ :index ]
+      end
   end
 
   resource :session
