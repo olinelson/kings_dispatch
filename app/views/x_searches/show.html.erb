@@ -3,8 +3,10 @@
 <%= render @x_search %>
 
 <div>
-  <%= link_to "Edit this x search", edit_x_search_path(@x_search) %> |
-  <%= link_to "Back to x searches", x_searches_path %>
+  <%= link_to "Edit this x search", edit_x_search_path(@x_search) %>
+  |
+  <%= link_to "Back to x searches",
+  x_topic_x_searches_path(@x_search.x_topic, @x_search) %>
 
   <%= button_to "Destroy this x search", @x_search, method: :delete %>
 </div>

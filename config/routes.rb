@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :x_topics do
-      resources :x_searches do
+      resources :x_searches, shallow: true do
         resources :x_posts, only: [ :index ]
       end
   end

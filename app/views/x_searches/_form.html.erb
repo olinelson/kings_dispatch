@@ -1,16 +1,4 @@
-<%= form_with(model: x_search) do |form| %>
-  <% if x_search.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(x_search.errors.count, "error") %> prohibited this x_search from being saved:</h2>
-
-      <ul>
-        <% x_search.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= form_with(model: [x_topic, x_search]) do |form| %>
   <div>
     <%= form.label :x_topic_id, style: "display: block" %>
     <%= form.text_field :x_topic_id %>

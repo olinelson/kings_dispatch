@@ -1,6 +1,6 @@
 class XSearchesController < ApplicationController
-  before_action :set_x_topic
   before_action :set_x_search, only: %i[ show edit update destroy ]
+  before_action :set_x_topic, only: %i[new create]
 
   # GET /x_topics/:x_topic_id/x_searches
   def index
@@ -13,7 +13,7 @@ class XSearchesController < ApplicationController
 
   # GET /x_searches/new
   def new
-    @x_search = XSearch.new
+    @x_search = @x_topic.x_searches.new
   end
 
   # GET /x_searches/1/edit
@@ -23,14 +23,11 @@ class XSearchesController < ApplicationController
   # POST /x_searches or /x_searches.json
   def create
     @x_search = XSearch.new(x_search_params)
-
     respond_to do |format|
       if @x_search.save
-        format.html { redirect_to @x_search, notice: "X search was successfully created." }
-        format.json { render :show, status: :created, location: @x_search }
+        format.html { redirect_to x_topic_x_searches_path(@x_topic, @x_search), notice: "X search was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @x_search.errors, status: :unprocessable_entity }
       end
     end
   end
