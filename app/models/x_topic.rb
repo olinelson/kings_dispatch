@@ -1,6 +1,7 @@
 class XTopic < ApplicationRecord
   has_many :x_interest_x_topic, dependent: :destroy
   has_many :x_interests, through: :x_interest_x_topic
+  has_many :x_searches
 
   normalizes :queries, with: ->(queries) { queries.compact.reject(&:empty?) }
 
