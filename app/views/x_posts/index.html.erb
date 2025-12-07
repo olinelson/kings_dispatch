@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "x_posts" do %>
+  <div class="prose">
+    <% @x_posts.each do |p| %>
+      <pre>
+        <%= p %>
+      </pre>
+    <% end %>
+    <% if @x_posts.none? %>
+      <p>No tweets</p>
+    <% end %>
+  </div>
+<% end %>

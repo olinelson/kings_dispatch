@@ -11,10 +11,6 @@ class XTopic < ApplicationRecord
   after_update :generate_query_later, if: :saved_change_to_title
   broadcasts
 
-  def posts(since:)
-    X.search_posts(formatted_queries, since:)
-  end
-
   def formatted_queries
     queries.map { "(#{it})" }.join(" OR ")
   end
@@ -60,14 +56,6 @@ def instructions
        • lang:en (unless clearly multilingual)
        • min_faves:5
        • filter:verified or filter:blue_verified when it helps
-    3. For short/ambiguous words (ruby, java, go, python, rust, apple, swift, pearl, etc.):
-       → NEVER use the bare word alone
-       → Always force context with #hashtags, common phrases, related tools/frameworks, or official accounts
-    4. Prefer clean, high-signal patterns that actually work in 2025:
-       • #rubyonrails over "Ruby on Rails"
-       • "rails" over "Ruby on Rails" when combined with dev terms
-       • #golang over "go programming"
-       • #midjourney over "midjourney ai"
     5. Use exact phrases in quotes only when necessary (product names, memes, slogans).
     6. Aggressively kill spam when obvious:
        • Crypto → -giveaway -airdrop -wl -mint

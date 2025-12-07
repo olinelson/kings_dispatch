@@ -1,6 +1,5 @@
 class XSearchesController < ApplicationController
   before_action :set_x_search, only: %i[ show edit update destroy ]
-  before_action :set_x_topic, only: %i[new create]
 
   # GET /x_topics/:x_topic_id/x_searches
   def index
@@ -13,7 +12,7 @@ class XSearchesController < ApplicationController
 
   # GET /x_searches/new
   def new
-    @x_search = @x_topic.x_searches.new
+    @x_search = XSearch.new
   end
 
   # GET /x_searches/1/edit
@@ -25,7 +24,7 @@ class XSearchesController < ApplicationController
     @x_search = XSearch.new(x_search_params)
     respond_to do |format|
       if @x_search.save
-        format.html { redirect_to x_topic_x_searches_path(@x_topic, @x_search), notice: "X search was successfully created." }
+        format.html { redirect_to  @x_search, notice: "X search was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -56,16 +55,10 @@ class XSearchesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_x_search
       @x_search = XSearch.find(params.expect(:id))
     end
 
-    def set_x_topic
-      @x_topic = XTopic.find(params.expect(:x_topic_id))
-    end
-
-    # Only allow a list of trusted parameters through.
     def x_search_params
       params.expect(x_search: [ :x_topic_id, :start_time, :end_time ])
     end

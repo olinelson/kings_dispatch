@@ -142,18 +142,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_06_111433) do
 
   create_table "x_posts", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.json "data"
     t.string "external_id"
-    t.boolean "is_automated"
-    t.boolean "is_blue_verified"
-    t.integer "like_count"
-    t.datetime "posted_at"
-    t.integer "quote_count"
-    t.integer "reply_count"
-    t.integer "retweet_count"
-    t.string "text"
     t.string "type"
     t.datetime "updated_at", null: false
-    t.integer "view_count"
     t.integer "x_search_id", null: false
     t.index ["x_search_id"], name: "index_x_posts_on_x_search_id"
   end

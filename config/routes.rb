@@ -19,10 +19,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :x_topics do
-      resources :x_searches, shallow: true do
-        resources :x_posts, only: [ :index ]
-      end
+  resources :x_topics
+  resources :x_searches, shallow: true do
+    resources :x_posts, only: [ :index ]
   end
 
   resource :session
