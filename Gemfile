@@ -78,6 +78,6 @@ gem "faraday"
 
 gem "ruby_llm-schema", "~> 0.2.1"
 
-gem "lexxy", "~> 0.1.20.beta"
+gem "lexxy", "~> 0.1.23.beta"
 
 gem "rails_icons", "~> 1.5"
